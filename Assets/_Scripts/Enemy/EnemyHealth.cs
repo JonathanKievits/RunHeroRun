@@ -10,12 +10,12 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
-        _maxHealth = 300;
+        _maxHealth = 500;
         _currentHealth = _maxHealth;
         HealthBar.SetMaxHealth(_maxHealth);
     }
 
-    private void GetDamage(int damage)
+    public void DoDamage(int damage)
     {
         _currentHealth -= damage;
         HealthBar.SetHealth(_currentHealth);

@@ -337,6 +337,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 925156155}
+        m_TargetAssemblyTypeName: MovementDetection, Assembly-CSharp
+        m_MethodName: MeterDispose
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &156577724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1044,6 +1056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stepText: {fileID: 339235080}
   _distanceText: {fileID: 1265488490}
+  _health: {fileID: 1010395774}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

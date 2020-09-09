@@ -8,6 +8,7 @@ public class MovementDetection : MonoBehaviour
 {
     public Text _stepText, _distanceText;
     private Pedometer _pedometer;
+    [SerializeField] private EnemyHealth _health;
 
     private void Start()
     {
@@ -19,5 +20,11 @@ public class MovementDetection : MonoBehaviour
     {
         _stepText.text = _steps.ToString();
         _distanceText.text = _distance.ToString();
+        _health.DoDamage(_steps/10);
+    }
+
+    public void MeterDispose()
+    {
+        _pedometer.Dispose();
     }
 }
