@@ -6,30 +6,25 @@ using PedometerU;
 
 public class MovementDetection : MonoBehaviour
 {
-    public Text StepText;
+    public Text _stepText, _distanceText;
+    [SerializeField]private EnemyHealth _enemyHealth;
     private Pedometer _pedometer;
-    private EnemyHealth _enemyHealth = null;
-
-    private void Awake()
-    {
-        Screen.sleepTimeout = SleepTimeout.NeverSleep;
-    }
 
     private void Start()
     {
-         _pedometer = new Pedometer(OnStep);
+        _pedometer = new Pedometer(OnStep);
         OnStep(0, 0);
-        _enemyHealth.GetComponent<EnemyHealth>();
     }
 
     private void OnStep(int _steps, double _distance)
     {
         _enemyHealth.DoDamage(_steps);
-        StepText.text = (_steps.ToString()) + " " + (_distance.ToString("2F"));
+        _stepText.text = _steps.ToString();
+        _distanceText.text = _distance.ToString();
     }
 
-    /*public void WhenDone()
+    public void WhenDone()
     {
         _pedometer.Dispose();
-    }*/
+    }
 }
