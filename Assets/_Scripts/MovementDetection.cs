@@ -27,4 +27,9 @@ public class MovementDetection : MonoBehaviour
     {
         _pedometer.Dispose();
     }
+
+    public void WhenDone()
+    {
+        _pedometer.Dispose();
+    }
 }

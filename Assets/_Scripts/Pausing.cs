@@ -5,12 +5,10 @@ using UnityEngine.UI;
 
 public class Pausing : MonoBehaviour
 {
-    [SerializeField] private Canvas _pauseCanvas = null;
-    [SerializeField] private Canvas _playCanvas = null;
-    [SerializeField] private Button _pButton = null;
-    [SerializeField] private Button _cButton = null;
+    [SerializeField] private Canvas _pauseCanvas = null, _playCanvas = null;
+    [SerializeField] private Button _pButton = null, _cButton = null;
 
-    void Start()
+    private void Start()
     {
         //Disables the Pausing UI when the script gets executed
         _pauseCanvas.enabled = false;
