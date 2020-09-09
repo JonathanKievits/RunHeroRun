@@ -20,4 +20,9 @@ public class MovementDetection : MonoBehaviour
         _stepText.text = _steps.ToString();
         _distanceText.text = _distance.ToString();
     }
+
+    public void WhenDone()
+    {
+        _pedometer.Dispose();
+    }
 }
