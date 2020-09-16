@@ -10,7 +10,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
-        _maxHealth = 500;
+        _maxHealth = 100;
         _currentHealth = _maxHealth;
         _healthBar.SetMaxHealth(_maxHealth);
     }

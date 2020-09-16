@@ -8,6 +8,7 @@ public class EnemyRespawner : MonoBehaviour
     private IEnumerator _coroutine;
     private GameObject _enemy = null;
     private int timing = 5;
+    private bool _respawning = false;
     [SerializeField] private Text _respawnText = null;
     [SerializeField] private EnemyHealth _eHealth = null;
 
@@ -23,10 +24,14 @@ public class EnemyRespawner : MonoBehaviour
 
     public void RespawnEnemy()
     {
-        _coroutine = Countdown(timing);
-        StartCoroutine(_coroutine);
-        _enemy.SetActive(false);
-        _respawnText.enabled = true;
+        if (!_respawning)
+        {
+            _respawning = true;
+            _coroutine = Countdown(timing);
+            StartCoroutine(_coroutine);
+            _enemy.SetActive(false);
+            _respawnText.enabled = true;
+        }
     }
 
     private IEnumerator Countdown(int respawnTime)
@@ -36,6 +41,6 @@ public class EnemyRespawner : MonoBehaviour
         _enemy.SetActive(true);
         _respawnText.enabled = false;
         _eHealth.ResetHealth();
-        Debug.Log("Respawned");
+        _respawning = false;
     }
 }
