@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    private int _maxHealth, _currentHealth;
-
-    [SerializeField] private EnemyHealthBar _healthBar;
+    private int  _currentHealth, _maxHealth;
+    [SerializeField] private EnemyHealthBar _healthBar = null;
+    [SerializeField] private EnemyRespawner _eSpawner = null;
 
     private void Start()
     {
@@ -31,11 +31,23 @@ public class EnemyHealth : MonoBehaviour
         {
             //Plays a sound when the enemy has no HP left and destroys the enemy
             FindObjectOfType<PlayerAudio>().PlaySound("DeadEnemy");
-            Destroy(this.gameObject);
+            _eSpawner.RespawnEnemy();
         }
         else
         {
             FindObjectOfType<PlayerAudio>().PlaySound("HitEnemy");
+            FindObjectOfType<CallAnimations>().EnemyAnimaton("RecievedDamage", true);
         }
+    }
+
+    public void ResetHealth()
+    {
+        _currentHealth = _maxHealth;
+        _healthBar.SetHealth(_currentHealth);
+    }
+
+    public void StopAnim()
+    {
+        FindObjectOfType<CallAnimations>().EnemyAnimaton("RecievedDamage", false);
     }
 }
