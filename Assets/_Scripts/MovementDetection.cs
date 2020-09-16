@@ -6,9 +6,11 @@ using PedometerU;
 
 public class MovementDetection : MonoBehaviour
 {
-    public Text _stepText, _distanceText;
     private Pedometer _pedometer;
-    [SerializeField] private EnemyHealth _health;
+    private int _damage = 1;
+    [SerializeField] private EnemyHealth _health = null;
+
+    public Text _stepText, _distanceText;
 
     private void Start()
     {
@@ -18,17 +20,12 @@ public class MovementDetection : MonoBehaviour
 
     private void OnStep(int _steps, double _distance)
     {
-        _stepText.text = _steps.ToString();
+        _stepText.text = "Total steps: " + _steps.ToString();
         _distanceText.text = _distance.ToString();
-        _health.DoDamage(_steps/10);
+        _health.DoDamage(_damage);
     }
 
     public void MeterDispose()
-    {
-        _pedometer.Dispose();
-    }
-
-    public void WhenDone()
     {
         _pedometer.Dispose();
     }
