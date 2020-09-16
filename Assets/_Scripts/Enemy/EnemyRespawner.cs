@@ -27,6 +27,7 @@ public class EnemyRespawner : MonoBehaviour
         if (!_respawning)
         {
             _respawning = true;
+            FindObjectOfType<PlayerAudio>().PlaySound("DeadEnemy");
             _coroutine = Countdown(timing);
             StartCoroutine(_coroutine);
             _enemy.SetActive(false);
