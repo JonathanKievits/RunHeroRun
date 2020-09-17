@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using PedometerU;
 
 public class MovementDetection : MonoBehaviour
 {
     private Pedometer _pedometer;
-    private int _damage = 1;
-    [SerializeField] private EnemyHealth _health = null;
 
+    public UnityEvent OnMovement;
     public Text _stepText, _distanceText;
 
     private void Start()
@@ -22,7 +22,15 @@ public class MovementDetection : MonoBehaviour
     {
         _stepText.text = "Total steps: " + _steps.ToString();
         _distanceText.text = _distance.ToString();
-        _health.DoDamage(_damage);
+        OnMovement.Invoke();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OnMovement.Invoke();
+        }
     }
 
     public void MeterDispose()

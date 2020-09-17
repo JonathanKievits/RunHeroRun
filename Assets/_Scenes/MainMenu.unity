@@ -503,6 +503,11 @@ MonoBehaviour:
     Volume: 0.4
     Loop: 0
     Source: {fileID: 0}
+  - Name: HealthPing
+    Clip: {fileID: 8300000, guid: 1afe452cf69915441b8514503a82a5f7, type: 3}
+    Volume: 0.05
+    Loop: 0
+    Source: {fileID: 0}
 --- !u!4 &893927413
 Transform:
   m_ObjectHideFlags: 0
