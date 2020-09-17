@@ -1,20 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class MyIntEvent : UnityEvent<int>
+{
+}
 
 public class EnemyHealth : MonoBehaviour
 {
     private int  _currentHealth, _maxHealth;
-    [SerializeField] private EnemyHealthBar _healthBar = null;
-    [SerializeField] private EnemyRespawner _eSpawner = null;
+    private bool _isDead;
+
+    public UnityEvent OnDeath; 
+    public MyIntEvent OnHealthChange, OnSetMaxHealth;
 
     private void Awake()
     {
+        _isDead = false;
         _maxHealth = 100;
+        OnSetMaxHealth.Invoke(_maxHealth);
         _currentHealth = _maxHealth;
-        _healthBar.SetMaxHealth(_maxHealth);
     }
-    
+
     /*
         When this function is called it ask first for a damage number so it can deduct the damage amount from the current health from the enemy.
         After that it sets the slider which in this case is used as a healthbar visual indicator. 
@@ -22,24 +31,29 @@ public class EnemyHealth : MonoBehaviour
       */
     public void DoDamage(int damage)
     {
-        _currentHealth -= damage;
-        _healthBar.SetHealth(_currentHealth);
-        if(_currentHealth <= 0)
+        if (!_isDead)
         {
-            _eSpawner.RespawnEnemy();
-        }
-        else
-        {
-            FindObjectOfType<PlayerAudio>().PlaySound("HitEnemy");
-            FindObjectOfType<CallAnimations>().EnemyAnimaton("RecievedDamage", true);
+            _currentHealth -= damage;
+            OnHealthChange.Invoke(damage);
+            if (_currentHealth <= 0)
+            {
+                _isDead = true;
+                OnDeath.Invoke();
+            }
+            else
+            {
+                FindObjectOfType<PlayerAudio>().PlaySound("HitEnemy");
+                FindObjectOfType<CallAnimations>().EnemyAnimaton("RecievedDamage", true);
+            }
         }
     }
 
     //This function is called when the enemy respawns so it has the correct amount of health again 
     public void ResetHealth()
     {
+        _isDead = false;
         _currentHealth = _maxHealth;
-        _healthBar.SetHealth(_currentHealth);
+        OnSetMaxHealth.Invoke(_maxHealth);
     }
 
     public void StopAnim()

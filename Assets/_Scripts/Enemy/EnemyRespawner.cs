@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class EnemyRespawner : MonoBehaviour
@@ -8,9 +9,9 @@ public class EnemyRespawner : MonoBehaviour
     private IEnumerator _coroutine;
     private GameObject _enemy = null;
     private int timing = 5;
-    private bool _respawning = false;
     [SerializeField] private Text _respawnText = null;
-    [SerializeField] private EnemyHealth _eHealth = null;
+
+    public UnityEvent OnRespawn;
 
     private void Awake()
     {
@@ -24,15 +25,11 @@ public class EnemyRespawner : MonoBehaviour
 
     public void RespawnEnemy()
     {
-        if (!_respawning)
-        {
-            _respawning = true;
-            FindObjectOfType<PlayerAudio>().PlaySound("DeadEnemy");
-            _coroutine = Countdown(timing);
-            StartCoroutine(_coroutine);
-            _enemy.SetActive(false);
-            _respawnText.enabled = true;
-        }
+        FindObjectOfType<PlayerAudio>().PlaySound("DeadEnemy");
+        _coroutine = Countdown(timing);
+        StartCoroutine(_coroutine);
+        _enemy.SetActive(false);
+        _respawnText.enabled = true;
     }
 
     private IEnumerator Countdown(int respawnTime)
@@ -41,7 +38,6 @@ public class EnemyRespawner : MonoBehaviour
         //spawn the enemy
         _enemy.SetActive(true);
         _respawnText.enabled = false;
-        _eHealth.ResetHealth();
-        _respawning = false;
+        OnRespawn.Invoke();
     }
 }
